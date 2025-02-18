@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { NavLink, useLocation } from "react-router-dom";
 import {
   Home,
+  BookText,
   BookOpen,
   Calendar,
   Users,
@@ -44,10 +45,21 @@ function Sidebar({ isOpen }) {
         { icon: BookOpen, label: "O'quv reja", path: "/study-plan" },
         { icon: Calendar, label: "Dars jadvali", path: "/schedule" },
         { icon: Users, label: "Guruhlar", path: "/groups" },
-        { icon: GraduationCap, label: "Fanlar", path: "/subjects" },
+        { icon: BookText, label: "Fanlar", path: "/subjects" },
         { icon: ClipboardList, label: "Nazoratlar", path: "/controls" },
         { icon: Award, label: "Reyting daftarcha", path: "/rating-book" },
         { icon: BookCheck, label: "Davomatlar", path: "/attendance" },
+      ],
+    },
+    {
+      id: "faculties",
+      title: "Fakultetlar",
+      items: [
+        {
+          icon: GraduationCap,
+          label: "Fakultetlar ro'yxati",
+          path: "/faculties",
+        },
       ],
     },
     {

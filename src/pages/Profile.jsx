@@ -1,10 +1,13 @@
-import React from "react";
+import React, { useState, useRef } from "react";
 import { Camera } from "lucide-react";
 
 function Profile() {
+  const [profileImage, setProfileImage] = useState(null);
+  const fileInputRef = useRef(null);
+
   const studentInfo = {
     personal: {
-      fullName: "John Smith",
+      fullName: "Eshmatov Toshmat",
       birthDate: "1999-05-15",
       passport: "AA1234567",
       phone: "+998 90 123 45 67",
@@ -21,6 +24,21 @@ function Profile() {
     },
   };
 
+  const handleImageClick = () => {
+    fileInputRef.current.click();
+  };
+
+  const handleImageChange = (event) => {
+    const file = event.target.files[0];
+    if (file) {
+      const reader = new FileReader();
+      reader.onloadend = () => {
+        setProfileImage(reader.result);
+      };
+      reader.readAsDataURL(file);
+    }
+  };
+
   return (
     <div className="space-y-6">
       <h2 className="text-2xl font-bold text-gray-800">Profil</h2>
@@ -28,12 +46,33 @@ function Profile() {
       <div className="bg-white rounded-lg shadow">
         <div className="p-6 flex flex-col md:flex-row items-start space-y-6 md:space-y-0 md:space-x-6">
           <div className="relative">
-            <div className="w-32 h-32 rounded-lg bg-gray-200 flex items-center justify-center">
-              <span className="text-3xl font-bold text-gray-400">JS</span>
+            <div
+              className="w-32 h-32 rounded-lg bg-gray-200 flex items-center justify-center overflow-hidden cursor-pointer"
+              onClick={handleImageClick}
+            >
+              {profileImage ? (
+                <img
+                  src={profileImage}
+                  alt="Profile"
+                  className="w-full h-full object-cover"
+                />
+              ) : (
+                <span className="text-3xl font-bold text-gray-400">ET</span>
+              )}
             </div>
-            <button className="absolute bottom-2 right-2 bg-white rounded-full p-1.5 shadow-lg">
+            <button
+              className="absolute bottom-2 right-2 bg-white rounded-full p-1.5 shadow-lg"
+              onClick={handleImageClick}
+            >
               <Camera className="h-4 w-4 text-gray-600" />
             </button>
+            <input
+              type="file"
+              ref={fileInputRef}
+              className="hidden"
+              accept="image/*"
+              onChange={handleImageChange}
+            />
           </div>
 
           <div className="flex-1">
